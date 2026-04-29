@@ -30,14 +30,12 @@ public class CreateAccountActivity extends AppCompatActivity {
             String username = editUsername.getText().toString().trim();
             String password = editPassword.getText().toString().trim();
 
-            // Validate inputs
             if (username.isEmpty() || password.isEmpty()) {
                 textError.setText("Username and password cannot be empty");
                 textError.setVisibility(View.VISIBLE);
                 return;
             }
 
-            // Check if username already exists
             AppDatabase db = AppDatabase.getInstance(this);
             User existing = db.userDAO().getUserByUsername(username);
             if (existing != null) {
@@ -46,14 +44,12 @@ public class CreateAccountActivity extends AppCompatActivity {
                 return;
             }
 
-            // Create and insert new user
             User newUser = new User();
             newUser.username = username;
             newUser.password = password;
             newUser.isAdmin  = false;
             db.userDAO().insert(newUser);
 
-            // Auto-login after account creation
             SharedPreferences prefs = getSharedPreferences("session", MODE_PRIVATE);
             prefs.edit()
                     .putString("username", username)
