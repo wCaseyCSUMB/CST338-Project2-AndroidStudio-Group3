@@ -1,19 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <EditText
+        android:id="@+id/usernameField"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="250dp"
+        android:layout_marginEnd="50dp"
+        android:hint="Username"
+        android:inputType="text"
+        android:fontFamily="@font/varela_round_regular"
+        android:padding="12dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/passwordField"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:hint="Password"
+        android:fontFamily="@font/varela_round_regular"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="@id/usernameField"
+        app:layout_constraintHorizontal_bias="0.541"
+        app:layout_constraintStart_toStartOf="@id/usernameField"
+        app:layout_constraintTop_toBottomOf="@id/usernameField" />
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Register Account"
+        android:fontFamily="@font/torus_bold"
+        android:textSize="15sp"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="@id/passwordField"
+        app:layout_constraintHorizontal_bias="0.541"
+        app:layout_constraintStart_toStartOf="@id/passwordField"
+        app:layout_constraintTop_toBottomOf="@id/passwordField"
+        android:background="@drawable/button_design"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@null"/>
+
+    <Button
+        android:id="@+id/regLoginButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Log in"
+        android:fontFamily="@font/torus_bold"
+        android:textSize="15sp"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="@id/registerButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/registerButton"
+        app:layout_constraintTop_toBottomOf="@id/registerButton"
+        android:background="@drawable/button_design"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@null"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
