@@ -16,14 +16,13 @@ This app was created as a final project for **CST 338: Software Design** at **Ca
 
 ## Features
 
-- User sign-in and account access
-- Current weather display for a selected location
+- Account system (username and password)
+- Current weather display for a user's specific location
+- Weather forecast for the current week (Sun - Sat)
 - City weather search
 - Weather details including temperature, humidity, wind speed, and conditions
-- Profile page with user information
-- Placeholder sections for favorite cities and recent search history
-- Admin role support
-- Modern Android UI with custom colors, fonts, cards, and navigation
+- **[WIP]** Profile page with sections for pinned cities and recent search history
+- Administrator role support
 
 ## Technology
 
