@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="app/src/main/res/drawable/app_icon.png" width="150">
+</p>
+
 # WeatherWatcher
 
 WeatherWatcher is an Android weather application that allows users to create an account, search for current weather data, view weather details for different locations, and manage activities such as pinned locations and a recent search history.
