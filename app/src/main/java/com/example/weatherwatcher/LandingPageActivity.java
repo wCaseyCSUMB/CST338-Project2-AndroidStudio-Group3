@@ -49,7 +49,7 @@ public class LandingPageActivity extends AppCompatActivity {
         });
 
         btnWeather.setOnClickListener(v -> {
-            // TODO: navigate to WeatherActivity
+            startActivity(WeatherActivity.makeIntent(this, username));
         });
 
         btnFavorites.setOnClickListener(v -> {
