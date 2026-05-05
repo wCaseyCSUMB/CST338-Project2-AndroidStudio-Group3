@@ -13,4 +13,12 @@ public interface WeatherApi {
             @Query("appid") String apiKey,
             @Query("units") String units
     );
+
+    @GET("weather") // UGHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+    Call<WeatherRespondingClass> getWeatherByLocation(
+            @Query("lat") double lat,
+            @Query("lon") double lon,
+            @Query("appid") String apiKey,
+            @Query("units") String units
+    );
 }

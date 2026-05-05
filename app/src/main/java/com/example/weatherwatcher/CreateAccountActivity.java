@@ -38,6 +38,7 @@ public class CreateAccountActivity extends AppCompatActivity {
 
             AppDatabase db = AppDatabase.getInstance(this);
             User existing = db.userDAO().getUserByUsername(username);
+
             if (existing != null) {
                 textError.setText("That username is already in use, please input a different one");
                 textError.setVisibility(View.VISIBLE);
@@ -51,10 +52,7 @@ public class CreateAccountActivity extends AppCompatActivity {
             db.userDAO().insert(newUser);
 
             SharedPreferences prefs = getSharedPreferences("session", MODE_PRIVATE);
-            prefs.edit()
-                    .putString("username", username)
-                    .putBoolean("is_admin", false)
-                    .apply();
+            prefs.edit().putString("username", username).putBoolean("is_admin", false).apply();
 
             startActivity(LandingPageActivity.makeIntent(this, username, false));
             finish();

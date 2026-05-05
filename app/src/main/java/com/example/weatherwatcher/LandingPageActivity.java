@@ -1,18 +1,30 @@
 package com.example.weatherwatcher;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
+import com.example.weatherwatcher.api.RetrofitClient;
+import com.example.weatherwatcher.model.WeatherRespondingClass;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.Priority;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LandingPageActivity extends AppCompatActivity {
 
     private static final String EXTRA_USERNAME = "USERNAME";
     private static final String EXTRA_IS_ADMIN = "IS_ADMIN";
+    FusedLocationProviderClient fusedLocationClient; // for the location
 
     public static Intent makeIntent(Context context, String username, boolean isAdmin) {
         Intent intent = new Intent(context, LandingPageActivity.class);
@@ -29,44 +41,78 @@ public class LandingPageActivity extends AppCompatActivity {
         String username = getIntent().getStringExtra(EXTRA_USERNAME);
         boolean isAdmin = getIntent().getBooleanExtra(EXTRA_IS_ADMIN, false);
 
-        TextView textWelcome    = findViewById(R.id.text_welcome);
-        TextView textAdminBadge = findViewById(R.id.text_admin_badge);
-        Button   btnAdminPanel  = findViewById(R.id.btn_admin_panel);
-        Button   btnLogout      = findViewById(R.id.btn_logout);
-        Button   btnWeather     = findViewById(R.id.btn_view_weather);
-        Button   btnFavorites   = findViewById(R.id.btn_favorites);
-        Button   btnHistory     = findViewById(R.id.btn_history);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, HomeFragment.newInstance(username, isAdmin)).commit();
 
-        textWelcome.setText("Welcome, " + username + "!");
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
 
-        if (isAdmin) {
-            textAdminBadge.setVisibility(View.VISIBLE);
-            btnAdminPanel.setVisibility(View.VISIBLE);
+        bottomNav.setOnItemSelectedListener(item -> {
+
+            if (item.getItemId() == R.id.nav_home) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, HomeFragment.newInstance(username, isAdmin)).commit();
+                return true;
+            }
+
+            if (item.getItemId() == R.id.nav_search) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchFragment()).commit();
+                return true;
+            }
+
+            return false;
+        });
+    }
+
+    // josue nava - jimenez :)
+    private void loadCurrentWeather(TextView textView) { // automatically detects your city, and as a result loads the weather
+
+        // i put a safety net here in case the user for whatever reason just doesn't give location permission
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+
+            textView.setText("Hi, location permission is required to show your weather.");
+            return;
         }
 
-        btnAdminPanel.setOnClickListener(v -> {
-            // TODO: navigate to AdminActivity
-        });
+        textView.setText("Loading your city's weather..."); // just some temporary text for now as it loads the weather
 
-        btnWeather.setOnClickListener(v -> {
-            startActivity(WeatherActivity.makeIntent(this, username));
-        });
+        // as the city loads, we ask android for the current PRECISE location (latitude and longitude), no cancellation
+        fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null).addOnSuccessListener(location -> {
+            if (location == null) { // another safety net, what if the location cannot be grabbed?
+                textView.setText("Uh oh, seems like we can't get your location :(");
+                return;
+            }
 
-        btnFavorites.setOnClickListener(v -> {
-            // TODO: navigate to FavoritesActivity
-        });
+            // this is honestly magical, based on the same algorithm for WeatherActivity.java
+            RetrofitClient.getInstance().getApiService().getWeatherByLocation(location.getLatitude(), location.getLongitude(), RetrofitClient.getInstance().getApiKey(), "imperial")
+                    .enqueue(new Callback<WeatherRespondingClass>() {
+                @Override // also these methods were automatically generated by intellij when i pressed tab. thanks i guess
+                public void onResponse(Call<WeatherRespondingClass> call, Response<WeatherRespondingClass> response) {
+                    if (response.isSuccessful() && response.body() != null) {
 
-        btnHistory.setOnClickListener(v -> {
-            // TODO: navigate to SearchHistoryActivity
-        });
+                        WeatherRespondingClass weather = response.body();
 
-        btnLogout.setOnClickListener(v -> {
-            getSharedPreferences("session", MODE_PRIVATE)
-                    .edit()
-                    .clear()
-                    .apply();
-            startActivity(MainActivity.makeIntent(this));
-            finish();
+                        textView.setText(weather.cityName + "\n" + Math.round(weather.main.temp) + "°F\n" + weather.weather.get(0).description);
+                    }
+
+                    else {
+                        textView.setText("Something went wrong. Please try again.");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<WeatherRespondingClass> call, Throwable t) {
+                    textView.setText("Network error: " + t.getMessage());
+                    textView.setVisibility(View.VISIBLE);
+                }
+            });
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            TextView textCurrentWeather = findViewById(R.id.text_current_weather);
+            loadCurrentWeather(textCurrentWeather);
+        }
     }
 }

@@ -1,47 +1,47 @@
 package com.example.weatherwatcher;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.example.weatherwatcher.api.RetrofitClient;
 import com.example.weatherwatcher.model.WeatherRespondingClass;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class WeatherActivity extends AppCompatActivity {
+public class SearchFragment extends Fragment {
 
-    private static final String EXTRA_USERNAME = "USERNAME";
-
-    public static Intent makeIntent(Context context, String username) {
-        Intent intent = new Intent(context, WeatherActivity.class);
-        intent.putExtra(EXTRA_USERNAME, username);
-        return intent;
+    public SearchFragment() { // idk how but including this but empty fixed it
+        System.out.println("haha heyyy");
     }
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_weather);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        String username = getIntent().getStringExtra(EXTRA_USERNAME);
+        View view = inflater.inflate(R.layout.activity_weather, container, false);
 
-        EditText editCity       = findViewById(R.id.edit_city);
-        Button btnSearch        = findViewById(R.id.btn_search);
-        ProgressBar progressBar = findViewById(R.id.progress_bar);
-        TextView textError      = findViewById(R.id.text_error);
-        LinearLayout layoutResult = findViewById(R.id.layout_result);
-        TextView textCityName   = findViewById(R.id.text_city_name);
-        TextView textTemperature = findViewById(R.id.text_temperature);
-        TextView textDescription = findViewById(R.id.text_description);
-        TextView textDetails    = findViewById(R.id.text_details);
+        EditText editCity = view.findViewById(R.id.edit_city);
+        Button btnSearch = view.findViewById(R.id.btn_search);
+        ProgressBar progressBar = view.findViewById(R.id.progress_bar);
+        TextView textError = view.findViewById(R.id.text_error);
+        LinearLayout layoutResult = view.findViewById(R.id.layout_result);
+        TextView textCityName = view.findViewById(R.id.text_city_name);
+        TextView textTemperature = view.findViewById(R.id.text_temperature);
+        TextView textDescription = view.findViewById(R.id.text_description);
+        TextView textDetails = view.findViewById(R.id.text_details);
 
         btnSearch.setOnClickListener(v -> {
             String city = editCity.getText().toString().trim();
@@ -58,10 +58,9 @@ public class WeatherActivity extends AppCompatActivity {
             layoutResult.setVisibility(View.GONE);
             btnSearch.setEnabled(false);
 
-            // api call stuff
-            RetrofitClient.getInstance().getApiService().getCurrentWeather(city, RetrofitClient.getInstance().getApiKey(), "imperial")
-                    .enqueue(new Callback<WeatherRespondingClass>() {
-                        @Override
+            RetrofitClient.getInstance().getApiService().getCurrentWeather(city, RetrofitClient.getInstance().getApiKey(), "imperial").enqueue(new Callback<WeatherRespondingClass>() {
+
+                @Override
                         public void onResponse(Call<WeatherRespondingClass> call, Response<WeatherRespondingClass> response) {
                             progressBar.setVisibility(View.GONE);
                             btnSearch.setEnabled(true);
@@ -69,12 +68,10 @@ public class WeatherActivity extends AppCompatActivity {
                             if (response.isSuccessful() && response.body() != null) {
                                 WeatherRespondingClass weather = response.body();
 
-                                // showing the weather info on the card
                                 textCityName.setText(weather.cityName);
-                                textTemperature.setText(
-                                        Math.round(weather.main.temp) + "°F");
-                                textDescription.setText(
-                                        weather.weather.get(0).description);
+                                textTemperature.setText(Math.round(weather.main.temp) + "°F");
+                                textDescription.setText(weather.weather.get(0).description);
+
                                 textDetails.setText(
                                         "Feels like: " + Math.round(weather.main.feelsLike) + "°F\n" +
                                                 "Humidity: " + weather.main.humidity + "%\n" +
@@ -85,9 +82,7 @@ public class WeatherActivity extends AppCompatActivity {
 
                                 layoutResult.setVisibility(View.VISIBLE);
 
-                            }
-
-                            else if (response.code() == 404) {
+                            } else if (response.code() == 404) {
                                 textError.setText("City not found. Please check the spelling.");
                                 textError.setVisibility(View.VISIBLE);
                             }
@@ -112,5 +107,7 @@ public class WeatherActivity extends AppCompatActivity {
                         }
                     });
         });
+
+        return view;
     }
 }
