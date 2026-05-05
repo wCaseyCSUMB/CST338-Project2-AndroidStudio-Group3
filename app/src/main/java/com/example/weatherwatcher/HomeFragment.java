@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,8 +29,7 @@ public class HomeFragment extends Fragment {
     private static final String ARG_IS_ADMIN = "IS_ADMIN";
     private FusedLocationProviderClient fusedLocationClient;
 
-    public HomeFragment() {
-        // Required empty public constructor
+    public HomeFragment() { // still don't know why this works
     }
 
     public static HomeFragment newInstance(String username, boolean isAdmin) {
@@ -52,9 +50,13 @@ public class HomeFragment extends Fragment {
 
         TextView textWelcome = view.findViewById(R.id.text_welcome);
         TextView textAdminBadge = view.findViewById(R.id.text_admin_badge);
-        Button btnAdminPanel = view.findViewById(R.id.btn_admin_panel);
-        TextView textCurrentWeather = view.findViewById(R.id.text_current_weather);
-        Button btnLogout = view.findViewById(R.id.btn_logout);
+
+        TextView textHomeCity = view.findViewById(R.id.text_home_city);
+        TextView textHomeDescription = view.findViewById(R.id.text_home_description);
+        TextView textHomeTemperature = view.findViewById(R.id.text_home_temperature);
+        TextView textHomeFeelsLike = view.findViewById(R.id.text_home_feels_like);
+        TextView textHomeHighLow = view.findViewById(R.id.text_home_high_low);
+        TextView textHomeDetails = view.findViewById(R.id.text_home_details);
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
 
@@ -66,43 +68,53 @@ public class HomeFragment extends Fragment {
             isAdmin = getArguments().getBoolean(ARG_IS_ADMIN, false);
         }
 
-        textWelcome.setText("Welcome, " + username + "!");
+        textWelcome.setText("Welcome, " + username + " \uD83D\uDC4B");
 
-        if (isAdmin) {
+        if (isAdmin) { // show the admin badge if the user is an admin
             textAdminBadge.setVisibility(View.VISIBLE);
-            btnAdminPanel.setVisibility(View.VISIBLE);
         }
 
-        btnAdminPanel.setOnClickListener(v -> {
-            // TODO: navigate to AdminActivity
-        });
-
-        loadCurrentWeather(textCurrentWeather);
-
-        btnLogout.setOnClickListener(v -> {requireActivity().getSharedPreferences("session", requireActivity().MODE_PRIVATE).edit().clear().apply();
-            startActivity(MainActivity.makeIntent(requireContext()));
-            requireActivity().finish();
-        });
+        loadCurrentWeather(textHomeCity, textHomeDescription, textHomeTemperature, textHomeFeelsLike, textHomeHighLow, textHomeDetails);
 
         return view;
     }
 
-    private void loadCurrentWeather(TextView textView) { // automatically detects your city, and as a result loads the weather
+    // automatically detects your city, and as a result loads the weather
+    private void loadCurrentWeather(TextView textCity, TextView textDescription, TextView textTemperature, TextView textFeelsLike, TextView textHighLow, TextView textDetails) {
 
         // i put a safety net here in case the user for whatever reason just doesn't give location permission
         if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            textView.setText("Hi, location permission is required to show your weather.");
+
+            textCity.setText("Location permission required.");
+            textDescription.setText("");
+            textTemperature.setText("");
+            textFeelsLike.setText("");
+            textHighLow.setText("");
+            textDetails.setText("");
 
             return;
         }
 
-        textView.setText("Loading your city's weather..."); // just some temporary text for now as it loads the weather
+        // just some temporary text for now as it loads the weather
+        textCity.setText("Loading...");
+        textDescription.setText("");
+        textTemperature.setText("");
+        textFeelsLike.setText("");
+        textHighLow.setText("");
+        textDetails.setText("");
 
         // as the city loads, we ask android for the current PRECISE location (latitude and longitude), no cancellation
         fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null).addOnSuccessListener(location -> {
+
             if (location == null) { // another safety net, what if the location cannot be grabbed?
-                textView.setText("Uh oh, seems like we can't get your location :(");
+                textCity.setText("Unable to get your location :(");
+                textDescription.setText("");
+                textTemperature.setText("");
+                textFeelsLike.setText("");
+                textHighLow.setText("");
+                textDetails.setText("");
+
                 return;
             }
 
@@ -113,19 +125,50 @@ public class HomeFragment extends Fragment {
                     if (response.isSuccessful() && response.body() != null) {
 
                         WeatherRespondingClass weather = response.body();
+                        String description = "N/A";
 
-                        textView.setText(weather.cityName + "\n" + Math.round(weather.main.temp) + "°F\n" + weather.weather.get(0).description);
+                        if (weather.weather != null && !weather.weather.isEmpty()) {
+                            description = weather.weather.get(0).description;
+                        }
+
+                        if (description.length() > 0) {
+                            description = description.substring(0, 1).toUpperCase() + description.substring(1);
+                        }
+
+                        textCity.setText(weather.cityName);
+                        textDescription.setText(description);
+                        textTemperature.setText(Math.round(weather.main.temp) + "°F");
+                        textFeelsLike.setText("Feels like " + Math.round(weather.main.feelsLike) + "°F");
+
+                        textHighLow.setText("High " + Math.round(weather.main.tempMax) + "°   •   Low " + Math.round(weather.main.tempMin) + "°");
+
+                        String windText = "Wind: N/A";
+
+                        if (weather.wind != null) {
+                            windText = "Wind: " + weather.wind.speed + " mph";
+                        }
+
+                        textDetails.setText("Humidity: " + weather.main.humidity + "%\n" + windText);
                     }
 
                     else {
-                        textView.setText("Something went wrong. Please try again.");
+                        textCity.setText("Something went wrong.");
+                        textDescription.setText("Please try again.");
+                        textTemperature.setText("");
+                        textFeelsLike.setText("");
+                        textHighLow.setText("");
+                        textDetails.setText("");
                     }
                 }
 
                 @Override
                 public void onFailure(Call<WeatherRespondingClass> call, Throwable t) {
-                    textView.setText("Network error: " + t.getMessage());
-                    textView.setVisibility(View.VISIBLE);
+                    textCity.setText("Network error.");
+                    textDescription.setText(t.getMessage());
+                    textTemperature.setText("");
+                    textFeelsLike.setText("");
+                    textHighLow.setText("");
+                    textDetails.setText("");
                 }
             });
         });
@@ -137,10 +180,14 @@ public class HomeFragment extends Fragment {
         if (requestCode == 1 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             View view = getView();
 
-            if (view != null) {
-                TextView textCurrentWeather = view.findViewById(R.id.text_current_weather);
-                loadCurrentWeather(textCurrentWeather);
-            }
+            TextView textHomeCity = view.findViewById(R.id.text_home_city);
+            TextView textHomeDescription = view.findViewById(R.id.text_home_description);
+            TextView textHomeTemperature = view.findViewById(R.id.text_home_temperature);
+            TextView textHomeFeelsLike = view.findViewById(R.id.text_home_feels_like);
+            TextView textHomeHighLow = view.findViewById(R.id.text_home_high_low);
+            TextView textHomeDetails = view.findViewById(R.id.text_home_details);
+
+            loadCurrentWeather(textHomeCity, textHomeDescription, textHomeTemperature, textHomeFeelsLike, textHomeHighLow, textHomeDetails);
         }
     }
 }

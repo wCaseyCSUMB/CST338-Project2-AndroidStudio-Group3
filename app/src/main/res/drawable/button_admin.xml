@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-
-    <!-- i'll work on what happens whenever you interact with these buttons later... - josue -->
-    <gradient android:startColor="#BF0000" android:endColor="#BF0000" android:angle="0" />
-    <corners android:radius="10dp"/>
-
-</shape>

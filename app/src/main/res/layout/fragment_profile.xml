@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F7FF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/text_profile_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Profile"
+            android:textSize="35sp"
+            android:fontFamily="@font/torus_bold"
+            android:textStyle="bold"
+            android:textColor="#001124"
+            android:layout_marginTop="125dp"
+            android:layout_marginBottom="20dp" />
+
+        <LinearLayout
+            android:id="@+id/card_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card"
+            android:padding="20dp"
+            android:layout_marginBottom="16dp"
+            android:elevation="0dp">
+
+            <TextView
+                android:id="@+id/text_profile_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Username"
+                android:textSize="25sp"
+                android:fontFamily="@font/torus_bold"
+                android:textColor="#004E96"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/text_profile_role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Standard User"
+                android:textSize="15sp"
+                android:fontFamily="@font/varela_round_regular"
+                android:textColor="#004E96" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/card_weather_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card"
+            android:padding="20dp"
+            android:layout_marginBottom="16dp"
+            android:elevation="0dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pinned Cities"
+                android:textSize="20sp"
+                android:fontFamily="@font/torus_bold"
+                android:textColor="#004E96"
+                android:layout_marginBottom="15dp" />
+
+            <TextView
+                android:id="@+id/text_favorite_cities_placeholder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="list of pinned cities"
+                android:textSize="14sp"
+                android:fontFamily="@font/varela_round_regular"
+                android:textColor="#2284E3"
+                android:layout_marginBottom="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="History"
+                android:textSize="20sp"
+                android:fontFamily="@font/torus_bold"
+                android:textColor="#004E96"
+                android:layout_marginBottom="15dp" />
+
+            <TextView
+                android:id="@+id/text_search_history_placeholder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="recent searches"
+                android:textSize="14sp"
+                android:fontFamily="@font/varela_round_regular"
+                android:textColor="#2284E3" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_admin_panel"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Admin Panel"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/torus_bold"
+            android:background="@drawable/button_design"
+            android:layout_marginBottom="16dp"
+            android:textSize="15sp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/button_design"
+            android:fontFamily="@font/torus_bold"
+            android:text="Logout"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+</ScrollView>

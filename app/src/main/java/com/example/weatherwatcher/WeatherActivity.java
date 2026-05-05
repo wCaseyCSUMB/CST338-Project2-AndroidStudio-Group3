@@ -33,15 +33,15 @@ public class WeatherActivity extends AppCompatActivity {
 
         String username = getIntent().getStringExtra(EXTRA_USERNAME);
 
-        EditText editCity       = findViewById(R.id.edit_city);
-        Button btnSearch        = findViewById(R.id.btn_search);
+        EditText editCity = findViewById(R.id.edit_city);
+        Button btnSearch = findViewById(R.id.btn_search);
         ProgressBar progressBar = findViewById(R.id.progress_bar);
-        TextView textError      = findViewById(R.id.text_error);
+        TextView textError = findViewById(R.id.text_error);
         LinearLayout layoutResult = findViewById(R.id.layout_result);
-        TextView textCityName   = findViewById(R.id.text_city_name);
+        TextView textCityName = findViewById(R.id.text_city_name);
         TextView textTemperature = findViewById(R.id.text_temperature);
         TextView textDescription = findViewById(R.id.text_description);
-        TextView textDetails    = findViewById(R.id.text_details);
+        TextView textDetails = findViewById(R.id.text_details);
 
         btnSearch.setOnClickListener(v -> {
             String city = editCity.getText().toString().trim();
@@ -50,6 +50,7 @@ public class WeatherActivity extends AppCompatActivity {
                 textError.setText("Please enter a city name");
                 textError.setVisibility(View.VISIBLE);
                 layoutResult.setVisibility(View.GONE);
+
                 return;
             }
 

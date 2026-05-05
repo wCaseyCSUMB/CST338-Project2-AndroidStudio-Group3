@@ -6,58 +6,70 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="32dp"
-    android:background="#F5F5F5">
+    android:background="#F0F7FF">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create Account"
-        android:textSize="28sp"
+        android:text="Welcome aboard!"
+        android:textSize="30sp"
         android:textStyle="bold"
-        android:textColor="#1565C0"
-        android:layout_marginBottom="8dp"/>
+        android:fontFamily="@font/torus_bold"
+        android:textColor="#004E96"
+        android:layout_marginBottom="15dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign up to start watching your weather!"
         android:textSize="14sp"
-        android:textColor="#757575"
-        android:layout_marginBottom="40dp"/>
+        android:fontFamily="@font/varela_round_regular"
+        android:textColor="#2284E3"
+        android:layout_marginBottom="30dp" />
 
     <EditText
         android:id="@+id/edit_username"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:hint="Choose a username"
         android:inputType="text"
         android:padding="12dp"
-        android:layout_marginBottom="16dp"
-        android:background="@android:drawable/edit_text"/>
+        android:layout_marginBottom="25dp"
+        android:fontFamily="@font/varela_round_regular"
+        android:textColor="#424242"
+        android:textColorHint="#757575"
+        android:background="@drawable/input_design" />
 
     <EditText
         android:id="@+id/edit_password"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:hint="Choose a password"
         android:inputType="textPassword"
         android:padding="12dp"
-        android:layout_marginBottom="24dp"
-        android:background="@android:drawable/edit_text"/>
+        android:layout_marginBottom="25dp"
+        android:fontFamily="@font/varela_round_regular"
+        android:textColor="#424242"
+        android:textColorHint="#757575"
+        android:background="@drawable/input_design" />
 
     <Button
         android:id="@+id/btn_submit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:background="@drawable/button_design"
+        android:fontFamily="@font/torus_bold"
         android:text="Create Account"
-        android:textSize="16sp"
-        android:layout_marginBottom="16dp"/>
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:layout_marginBottom="15dp" />
 
     <TextView
         android:id="@+id/text_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#D32F2F"
-        android:visibility="gone"/>
+        android:fontFamily="@font/varela_round_regular"
+        android:visibility="gone" />
 
 </LinearLayout>

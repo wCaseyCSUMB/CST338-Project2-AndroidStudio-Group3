@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E3F2FF">
+    android:background="#F0F7FF">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,11 +14,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Search Weather 🌧️"
+            android:text="Search Weather"
             android:textSize="30sp"
             android:fontFamily="@font/torus_bold"
             android:textStyle="bold"
-            android:textColor="#1565C0"
+            android:textColor="#004BA1"
             android:layout_marginTop="125dp"
             android:layout_marginBottom="20dp" />
 
@@ -31,16 +31,16 @@
             android:padding="12dp"
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/varela_round_regular"
-            android:textColor="#424242"
-            android:textColorHint="#757575"
-            android:background="@drawable/card" />
+            android:textColor="#001C36"
+            android:textColorHint="#1972BD"
+            android:background="@drawable/input_design" />
 
         <Button
             android:id="@+id/btn_search"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:text="Search"
-            android:textColor="#FFFFFF"
+            android:textColor="#DCEAF7"
             android:textSize="15sp"
             android:fontFamily="@font/torus_bold"
             android:background="@drawable/button_design"
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/card"
-            android:padding="16dp"
+            android:padding="20dp"
             android:elevation="0dp"
             android:visibility="gone">
 
@@ -78,10 +78,10 @@
                 android:id="@+id/text_city_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="22sp"
+                android:textSize="24sp"
                 android:fontFamily="@font/torus_bold"
                 android:textStyle="bold"
-                android:textColor="#1565C0"
+                android:textColor="#004E96"
                 android:layout_marginBottom="8dp" />
 
             <TextView
@@ -91,16 +91,16 @@
                 android:textSize="48sp"
                 android:fontFamily="@font/torus_bold"
                 android:textStyle="bold"
-                android:textColor="#424242"
+                android:textColor="#001124"
                 android:layout_marginBottom="4dp" />
 
             <TextView
                 android:id="@+id/text_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 android:fontFamily="@font/varela_round_regular"
-                android:textColor="#757575"
+                android:textColor="#004E96"
                 android:layout_marginBottom="16dp" />
 
             <TextView
@@ -109,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:fontFamily="@font/varela_round_regular"
-                android:textColor="#424242" />
+                android:textColor="#2284E3" />
 
         </LinearLayout>
 

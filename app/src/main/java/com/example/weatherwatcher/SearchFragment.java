@@ -47,7 +47,7 @@ public class SearchFragment extends Fragment {
             String city = editCity.getText().toString().trim();
 
             if (city.isEmpty()) {
-                textError.setText("Please enter a city name");
+                textError.setText("Enter a city's name");
                 textError.setVisibility(View.VISIBLE);
                 layoutResult.setVisibility(View.GONE);
                 return;
