@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="app/src/main/res/drawable/app_icon.png" width="150">
+  <img src="app/src/main/res/drawable/app_icon.png" width="100">
 </p>
 
 # WeatherWatcher
