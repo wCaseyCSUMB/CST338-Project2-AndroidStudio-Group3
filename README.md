@@ -13,3 +13,5 @@ Oliver Liu - Awesomeuno
 ##Project Setup
 ###WIP
 
+##API Usage
+Utilizes OpenWeather API (FREE!) to gather weather information to display to the user of the app
