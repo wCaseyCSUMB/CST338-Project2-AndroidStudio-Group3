@@ -16,13 +16,12 @@ This app was created as a final project for **CST 338: Software Design** at **Ca
 
 ## Features
 
-- Account system (username and password)
-- Current weather display for a user's specific location
-- Weather forecast for the current week (Sun - Sat)
-- City weather search
+- Account system: Username and password to login + account creation
+- Current weather display for a user's specific location (asks for users location with a pop-up)
+- Search feature to look up cities by name
 - Weather details including temperature, humidity, wind speed, and conditions
-- **[WIP]** Profile page with sections for pinned cities and recent search history
-- Administrator role support
+- Taskbar with sections for pinned cities and recent search history
+- Administrator role to remove users
 
 ## Technology
 
