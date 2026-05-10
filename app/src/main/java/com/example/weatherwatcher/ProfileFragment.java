@@ -61,7 +61,7 @@ public class ProfileFragment extends Fragment {
         }
 
         btnAdminPanel.setOnClickListener(v -> {
-            // TODO: navigate to AdminActivity
+            startActivity(AdminActivity.makeIntent(requireContext()));
         });
 
         // TODO AS WELL: please add functionality to searches to pin cities!
