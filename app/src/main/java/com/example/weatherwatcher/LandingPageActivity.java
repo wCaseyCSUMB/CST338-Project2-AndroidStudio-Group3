@@ -56,6 +56,14 @@ public class LandingPageActivity extends AppCompatActivity {
                 return true;
             }
 
+            if (item.getItemId() == R.id.nav_history) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container,
+                                SearchHistoryFragment.newInstance(username))
+                        .commit();
+                return true;
+            }
+
             return false;
         });
     }
