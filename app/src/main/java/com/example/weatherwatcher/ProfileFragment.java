@@ -64,10 +64,6 @@ public class ProfileFragment extends Fragment {
             startActivity(AdminActivity.makeIntent(requireContext()));
         });
 
-        // TODO AS WELL: please add functionality to searches to pin cities!
-        // maybe add a pin button? would be cool!
-        // for the source, i added a pin svg you can utilize:
-        // @drawable/ico_pin
 
         btnLogout.setOnClickListener(v -> {
             requireActivity().getSharedPreferences("session", requireActivity().MODE_PRIVATE).edit().clear().apply();
