@@ -12,6 +12,16 @@
         android:icon="@drawable/ico_search" />
 
     <item
+        android:id="@+id/nav_saved"
+        android:icon="@android:drawable/btn_star_big_on"
+        android:title="Saved"/>
+
+    <item
+        android:id="@+id/nav_history"
+        android:icon="@android:drawable/ic_menu_recent_history"
+        android:title="History"/>
+
+    <item
         android:id="@+id/nav_profile"
         android:title="Profile"
         android:icon="@drawable/ico_profile" />

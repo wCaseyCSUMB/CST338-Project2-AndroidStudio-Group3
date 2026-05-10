@@ -111,6 +111,17 @@
                 android:fontFamily="@font/varela_round_regular"
                 android:textColor="#2284E3" />
 
+            <Button
+                android:id="@+id/btn_save_location"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="📌 Save Location"
+                android:textColor="#DCEAF7"
+                android:textSize="15sp"
+                android:fontFamily="@font/torus_bold"
+                android:background="@drawable/button_design"
+                android:layout_marginTop="16dp"/>
+
         </LinearLayout>
 
     </LinearLayout>
