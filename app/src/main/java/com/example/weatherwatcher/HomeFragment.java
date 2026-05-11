@@ -76,6 +76,7 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+    // this took FOREVER MAN
     private void loadCurrentWeather(TextView textCity, TextView textDescription, TextView textTemperature, TextView textFeelsLike, TextView textHighLow, TextView textHumidity, TextView textWind) {
 
         // i put a safety net here in case the user for whatever reason just doesn't give location permission
