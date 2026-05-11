@@ -24,7 +24,7 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         EditText editUsername = findViewById(R.id.edit_username);
         EditText editPassword = findViewById(R.id.edit_password);
-        TextView textError    = findViewById(R.id.text_error);
+        TextView textError = findViewById(R.id.text_error);
 
         findViewById(R.id.btn_submit).setOnClickListener(v -> {
             String username = editUsername.getText().toString().trim();
@@ -48,7 +48,7 @@ public class CreateAccountActivity extends AppCompatActivity {
             User newUser = new User();
             newUser.username = username;
             newUser.password = password;
-            newUser.isAdmin  = false;
+            newUser.isAdmin = false;
             db.userDAO().insert(newUser);
 
             SharedPreferences prefs = getSharedPreferences("session", MODE_PRIVATE);

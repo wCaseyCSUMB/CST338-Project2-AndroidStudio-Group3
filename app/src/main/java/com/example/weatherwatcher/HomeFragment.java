@@ -29,9 +29,6 @@ public class HomeFragment extends Fragment {
     private static final String ARG_IS_ADMIN = "IS_ADMIN";
     private FusedLocationProviderClient fusedLocationClient;
 
-    public HomeFragment() { // still don't know why this works
-    }
-
     public static HomeFragment newInstance(String username, boolean isAdmin) {
         HomeFragment fragment = new HomeFragment();
 
@@ -56,7 +53,8 @@ public class HomeFragment extends Fragment {
         TextView textHomeTemperature = view.findViewById(R.id.text_home_temperature);
         TextView textHomeFeelsLike = view.findViewById(R.id.text_home_feels_like);
         TextView textHomeHighLow = view.findViewById(R.id.text_home_high_low);
-        TextView textHomeDetails = view.findViewById(R.id.text_home_details);
+        TextView textHomeHumidity = view.findViewById(R.id.text_home_humidity);
+        TextView textHomeWind = view.findViewById(R.id.text_home_wind);
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
 
@@ -70,17 +68,15 @@ public class HomeFragment extends Fragment {
 
         textWelcome.setText("Welcome, " + username + " \uD83D\uDC4B");
 
-        if (isAdmin) { // show the admin badge if the user is an admin
+        if (isAdmin) {
             textAdminBadge.setVisibility(View.VISIBLE);
         }
 
-        loadCurrentWeather(textHomeCity, textHomeDescription, textHomeTemperature, textHomeFeelsLike, textHomeHighLow, textHomeDetails);
-
+        loadCurrentWeather(textHomeCity, textHomeDescription, textHomeTemperature, textHomeFeelsLike, textHomeHighLow, textHomeHumidity, textHomeWind);
         return view;
     }
 
-    // automatically detects your city, and as a result loads the weather
-    private void loadCurrentWeather(TextView textCity, TextView textDescription, TextView textTemperature, TextView textFeelsLike, TextView textHighLow, TextView textDetails) {
+    private void loadCurrentWeather(TextView textCity, TextView textDescription, TextView textTemperature, TextView textFeelsLike, TextView textHighLow, TextView textHumidity, TextView textWind) {
 
         // i put a safety net here in case the user for whatever reason just doesn't give location permission
         if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -91,7 +87,8 @@ public class HomeFragment extends Fragment {
             textTemperature.setText("");
             textFeelsLike.setText("");
             textHighLow.setText("");
-            textDetails.setText("");
+            textHumidity.setText("");
+            textWind.setText("");
 
             return;
         }
@@ -102,24 +99,26 @@ public class HomeFragment extends Fragment {
         textTemperature.setText("");
         textFeelsLike.setText("");
         textHighLow.setText("");
-        textDetails.setText("");
+        textHumidity.setText("");
+        textWind.setText("");
 
         // as the city loads, we ask android for the current PRECISE location (latitude and longitude), no cancellation
         fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null).addOnSuccessListener(location -> {
 
-            if (location == null) { // another safety net, what if the location cannot be grabbed?
+            if (location == null) { // another safety net, like okay what if the location cannot be grabbed?
                 textCity.setText("Unable to get your location :(");
                 textDescription.setText("");
                 textTemperature.setText("");
                 textFeelsLike.setText("");
                 textHighLow.setText("");
-                textDetails.setText("");
+                textHumidity.setText("");
+                textWind.setText("");
 
                 return;
             }
 
-            RetrofitClient.getInstance().getApiService().getWeatherByLocation(location.getLatitude(), location.getLongitude(),
-                    RetrofitClient.getInstance().getApiKey(), "imperial").enqueue(new Callback<WeatherRespondingClass>() {
+            RetrofitClient.getInstance().getApiService().getWeatherByLocation(location.getLatitude(), location.getLongitude(), RetrofitClient.getInstance().getApiKey(), "imperial").enqueue(new Callback<WeatherRespondingClass>() {
+
                 @Override
                 public void onResponse(Call<WeatherRespondingClass> call, Response<WeatherRespondingClass> response) {
                     if (response.isSuccessful() && response.body() != null) {
@@ -139,16 +138,17 @@ public class HomeFragment extends Fragment {
                         textDescription.setText(description);
                         textTemperature.setText(Math.round(weather.main.temp) + "°F");
                         textFeelsLike.setText("Feels like " + Math.round(weather.main.feelsLike) + "°F");
-
                         textHighLow.setText("High " + Math.round(weather.main.tempMax) + "°   •   Low " + Math.round(weather.main.tempMin) + "°");
 
-                        String windText = "Wind: N/A";
+                        textHumidity.setText(weather.main.humidity + "%");
 
                         if (weather.wind != null) {
-                            windText = "Wind: " + weather.wind.speed + " mph";
+                            textWind.setText(weather.wind.speed + " mph");
                         }
 
-                        textDetails.setText("Humidity: " + weather.main.humidity + "%\n" + windText);
+                        else {
+                            textWind.setText("N/A");
+                        }
                     }
 
                     else {
@@ -157,7 +157,8 @@ public class HomeFragment extends Fragment {
                         textTemperature.setText("");
                         textFeelsLike.setText("");
                         textHighLow.setText("");
-                        textDetails.setText("");
+                        textHumidity.setText("");
+                        textWind.setText("");
                     }
                 }
 
@@ -168,15 +169,17 @@ public class HomeFragment extends Fragment {
                     textTemperature.setText("");
                     textFeelsLike.setText("");
                     textHighLow.setText("");
-                    textDetails.setText("");
+                    textHumidity.setText("");
+                    textWind.setText("");
                 }
             });
         });
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
-    {super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    @Override // i learned about this method i think it works i don't care i just want  to be done
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
         if (requestCode == 1 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             View view = getView();
 
@@ -185,9 +188,10 @@ public class HomeFragment extends Fragment {
             TextView textHomeTemperature = view.findViewById(R.id.text_home_temperature);
             TextView textHomeFeelsLike = view.findViewById(R.id.text_home_feels_like);
             TextView textHomeHighLow = view.findViewById(R.id.text_home_high_low);
-            TextView textHomeDetails = view.findViewById(R.id.text_home_details);
+            TextView textHomeHumidity = view.findViewById(R.id.text_home_humidity);
+            TextView textHomeWind = view.findViewById(R.id.text_home_wind);
 
-            loadCurrentWeather(textHomeCity, textHomeDescription, textHomeTemperature, textHomeFeelsLike, textHomeHighLow, textHomeDetails);
+            loadCurrentWeather(textHomeCity, textHomeDescription, textHomeTemperature, textHomeFeelsLike, textHomeHighLow, textHomeHumidity, textHomeWind);
         }
     }
 }

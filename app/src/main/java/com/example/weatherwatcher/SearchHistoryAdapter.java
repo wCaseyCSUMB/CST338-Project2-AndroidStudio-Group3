@@ -31,8 +31,7 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_search_history, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_search_history, parent, false);
         return new ViewHolder(view);
     }
 
@@ -42,8 +41,7 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
         holder.textCityName.setText(item.cityName);
         holder.textDetails.setText(item.temperature + " • " + item.description);
 
-        String date = new SimpleDateFormat("MMM d, h:mm a", Locale.getDefault())
-                .format(new Date(item.timestamp));
+        String date = new SimpleDateFormat("MMM d, h:mm a", Locale.getDefault()).format(new Date(item.timestamp));
         holder.textTimestamp.setText(date);
     }
 
@@ -59,8 +57,8 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textCityName  = itemView.findViewById(R.id.text_city_name);
-            textDetails   = itemView.findViewById(R.id.text_details);
+            textCityName = itemView.findViewById(R.id.text_city_name);
+            textDetails = itemView.findViewById(R.id.text_details);
             textTimestamp = itemView.findViewById(R.id.text_timestamp);
         }
     }

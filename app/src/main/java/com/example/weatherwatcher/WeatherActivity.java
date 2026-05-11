@@ -23,6 +23,7 @@ public class WeatherActivity extends AppCompatActivity {
     public static Intent makeIntent(Context context, String username) {
         Intent intent = new Intent(context, WeatherActivity.class);
         intent.putExtra(EXTRA_USERNAME, username);
+
         return intent;
     }
 
@@ -59,9 +60,7 @@ public class WeatherActivity extends AppCompatActivity {
             layoutResult.setVisibility(View.GONE);
             btnSearch.setEnabled(false);
 
-            // api call stuff
-            RetrofitClient.getInstance().getApiService().getCurrentWeather(city, RetrofitClient.getInstance().getApiKey(), "imperial")
-                    .enqueue(new Callback<WeatherRespondingClass>() {
+            RetrofitClient.getInstance().getApiService().getCurrentWeather(city, RetrofitClient.getInstance().getApiKey(), "imperial").enqueue(new Callback<WeatherRespondingClass>() {
                         @Override
                         public void onResponse(Call<WeatherRespondingClass> call, Response<WeatherRespondingClass> response) {
                             progressBar.setVisibility(View.GONE);
@@ -70,20 +69,10 @@ public class WeatherActivity extends AppCompatActivity {
                             if (response.isSuccessful() && response.body() != null) {
                                 WeatherRespondingClass weather = response.body();
 
-                                // showing the weather info on the card
                                 textCityName.setText(weather.cityName);
-                                textTemperature.setText(
-                                        Math.round(weather.main.temp) + "°F");
-                                textDescription.setText(
-                                        weather.weather.get(0).description);
-                                textDetails.setText(
-                                        "Feels like: " + Math.round(weather.main.feelsLike) + "°F\n" +
-                                                "Humidity: " + weather.main.humidity + "%\n" +
-                                                "Wind: " + weather.wind.speed + " mph\n" +
-                                                "High: " + Math.round(weather.main.tempMax) + "°F  " +
-                                                "Low: " + Math.round(weather.main.tempMin) + "°F"
-                                );
-
+                                textTemperature.setText(Math.round(weather.main.temp) + "°F");
+                                textDescription.setText(weather.weather.get(0).description);
+                                textDetails.setText("Feels like: " + Math.round(weather.main.feelsLike) + "°F\n" + "Humidity: " + weather.main.humidity + "%\n" + "Wind: " + weather.wind.speed + " mph\n" + "High: " + Math.round(weather.main.tempMax) + "°F  " + "Low: " + Math.round(weather.main.tempMin) + "°F");
                                 layoutResult.setVisibility(View.VISIBLE);
 
                             }

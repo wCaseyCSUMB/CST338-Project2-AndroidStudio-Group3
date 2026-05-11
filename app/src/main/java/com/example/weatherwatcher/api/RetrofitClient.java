@@ -11,10 +11,7 @@ public class RetrofitClient {
     private final WeatherApi apiService;
 
     private RetrofitClient() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
 
         apiService = retrofit.create(WeatherApi.class);
     }
@@ -23,6 +20,7 @@ public class RetrofitClient {
         if (instance == null) {
             instance = new RetrofitClient();
         }
+
         return instance;
     }
 

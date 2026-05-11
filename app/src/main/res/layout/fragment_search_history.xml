@@ -4,49 +4,60 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F0F7FF">
+    android:background="#F0F7FF"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    android:paddingTop="125dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="24dp"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:layout_marginBottom="20dp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Search History"
-            android:textSize="26sp"
+            android:textSize="35sp"
+            android:fontFamily="@font/torus_bold"
             android:textStyle="bold"
-            android:textColor="#004BA1"/>
+            android:textColor="#004E96" />
 
         <Button
             android:id="@+id/btn_clear_history"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="44dp"
             android:text="Clear All"
+            android:textColor="#FFFFFF"
             android:textSize="12sp"
-            android:backgroundTint="#C62828"
-            android:visibility="gone"/>
+            android:fontFamily="@font/torus_bold"
+            android:background="@drawable/button_design"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp"
+            android:visibility="gone" />
 
     </LinearLayout>
 
     <TextView
         android:id="@+id/text_empty"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="No search history yet. Search for a city to get started."
-        android:textColor="#757575"
-        android:textSize="14sp"
-        android:padding="24dp"
-        android:visibility="gone"/>
+        android:textColor="#27517A"
+        android:textSize="16sp"
+        android:fontFamily="@font/varela_round_regular"
+        android:background="@drawable/card"
+        android:padding="20dp"
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_search_history"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"/>
+        android:clipToPadding="false"
+        android:paddingBottom="24dp" />
 
 </LinearLayout>

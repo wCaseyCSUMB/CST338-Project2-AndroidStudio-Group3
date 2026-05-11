@@ -49,18 +49,12 @@ public class LandingPageActivity extends AppCompatActivity {
             }
 
             if (item.getItemId() == R.id.nav_saved) {
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container,
-                                SavedLocationsFragment.newInstance(username))
-                        .commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, SavedLocationsFragment.newInstance(username)).commit();
                 return true;
             }
 
             if (item.getItemId() == R.id.nav_history) {
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container,
-                                SearchHistoryFragment.newInstance(username))
-                        .commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, SearchHistoryFragment.newInstance(username)).commit();
                 return true;
             }
 

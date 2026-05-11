@@ -18,24 +18,16 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public static AppDatabase getInstance(Context context) {
         if (instance == null) {
-            instance = Room.databaseBuilder(
-                            context.getApplicationContext(),
-                            AppDatabase.class,
-                            "weatherapp_db")
-                    .allowMainThreadQueries()
-                    .fallbackToDestructiveMigration()
-                    .addCallback(new RoomDatabase.Callback() {
+            instance = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "weatherapp_db").allowMainThreadQueries().fallbackToDestructiveMigration().addCallback(new RoomDatabase.Callback() {
                         @Override
                         public void onCreate(@NonNull SupportSQLiteDatabase db) {
                             super.onCreate(db);
-                            db.execSQL("INSERT INTO users (username, password, is_admin) " +
-                                    "VALUES ('testuser1', 'password1', 0)");
-                            db.execSQL("INSERT INTO users (username, password, is_admin) " +
-                                    "VALUES ('admin2', 'adminpass', 1)");
+                            db.execSQL("INSERT INTO users (username, password, is_admin) " + "VALUES ('testuser1', 'password1', 0)");
+                            db.execSQL("INSERT INTO users (username, password, is_admin) " + "VALUES ('admin2', 'adminpass', 1)");
                         }
-                    })
-                    .build();
+                    }).build();
         }
+
         return instance;
     }
 }

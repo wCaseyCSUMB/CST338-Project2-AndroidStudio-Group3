@@ -32,20 +32,16 @@ public class AdminActivity extends AppCompatActivity {
         List<User> users = db.userDAO().getAllUsers();
 
         textUserCount.setText(users.size() + " users");
-
         final UserAdapter[] adapter = {null};
+
         adapter[0] = new UserAdapter(users, user -> {
-            new AlertDialog.Builder(this)
-                    .setTitle("Delete User")
-                    .setMessage("Are you sure you want to delete " + user.username + "?")
-                    .setPositiveButton("Delete", (dialog, which) -> {
+            new AlertDialog.Builder(this).setTitle("Delete User").setMessage("Are you sure you want to delete " + user.username + "?")
+                    .setPositiveButton("Delete", (dialog, which) -> { // bro i can't
                         db.userDAO().delete(user);
                         List<User> updated = db.userDAO().getAllUsers();
                         adapter[0].setUsers(updated);
                         textUserCount.setText(updated.size() + " users");
-                    })
-                    .setNegativeButton("Cancel", null)
-                    .show();
+                    }).setNegativeButton("Cancel", null).show();
         });
 
         recyclerUsers.setAdapter(adapter[0]);

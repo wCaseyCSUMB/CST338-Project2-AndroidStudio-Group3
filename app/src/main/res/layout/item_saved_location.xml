@@ -4,12 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="#FFFFFF"
-    android:padding="16dp"
-    android:layout_marginHorizontal="8dp"
-    android:layout_marginTop="8dp"
+    android:background="@drawable/card"
+    android:padding="20dp"
+    android:layout_marginBottom="12dp"
     android:gravity="center_vertical"
-    android:elevation="1dp">
+    android:elevation="0dp">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -21,26 +20,32 @@
             android:id="@+id/text_city_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="20sp"
+            android:fontFamily="@font/torus_bold"
             android:textStyle="bold"
-            android:textColor="#212121"/>
+            android:textColor="#004E96" />
 
         <TextView
             android:id="@+id/text_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="13sp"
-            android:textColor="#757575"
-            android:layout_marginTop="2dp"/>
+            android:textSize="15sp"
+            android:fontFamily="@font/varela_round_regular"
+            android:textColor="#27517A"
+            android:layout_marginTop="4dp" />
 
     </LinearLayout>
 
     <Button
         android:id="@+id/btn_remove"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="44dp"
         android:text="Remove"
+        android:textColor="#FFFFFF"
         android:textSize="12sp"
-        android:backgroundTint="#757575"/>
+        android:fontFamily="@font/torus_bold"
+        android:background="@drawable/button_design"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp" />
 
 </LinearLayout>

@@ -24,7 +24,7 @@ public class SavedLocationAdapter extends RecyclerView.Adapter<SavedLocationAdap
 
     public SavedLocationAdapter(List<SavedLocation> locations, OnDeleteClickListener listener) {
         this.locations = locations;
-        this.listener  = listener;
+        this.listener = listener;
     }
 
     public void setLocations(List<SavedLocation> locations) {
@@ -35,8 +35,7 @@ public class SavedLocationAdapter extends RecyclerView.Adapter<SavedLocationAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_saved_location, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_saved_location, parent, false);
         return new ViewHolder(view);
     }
 
@@ -61,8 +60,8 @@ public class SavedLocationAdapter extends RecyclerView.Adapter<SavedLocationAdap
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             textCityName = itemView.findViewById(R.id.text_city_name);
-            textDetails  = itemView.findViewById(R.id.text_details);
-            btnRemove    = itemView.findViewById(R.id.btn_remove);
+            textDetails = itemView.findViewById(R.id.text_details);
+            btnRemove = itemView.findViewById(R.id.btn_remove);
         }
     }
 }

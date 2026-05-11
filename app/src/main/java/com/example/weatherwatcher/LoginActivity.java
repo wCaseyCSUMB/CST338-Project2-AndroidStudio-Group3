@@ -24,29 +24,24 @@ public class LoginActivity extends AppCompatActivity {
 
         EditText editUsername = findViewById(R.id.edit_username);
         EditText editPassword = findViewById(R.id.edit_password);
-        TextView textError    = findViewById(R.id.text_error);
+        TextView textError = findViewById(R.id.text_error);
 
         findViewById(R.id.btn_login).setOnClickListener(v -> {
             String username = editUsername.getText().toString().trim();
             String password = editPassword.getText().toString().trim();
 
-            // Query the database
             AppDatabase db = AppDatabase.getInstance(this);
             User user = db.userDAO().login(username, password);
 
             if (user != null) {
-                // Save session to SharedPreferences
                 SharedPreferences prefs = getSharedPreferences("session", MODE_PRIVATE);
-                prefs.edit()
-                        .putString("username", user.username)
-                        .putBoolean("is_admin", user.isAdmin)
-                        .apply();
+                prefs.edit().putString("username", user.username).putBoolean("is_admin", user.isAdmin).apply();
 
-                // Navigate to landing page
-                startActivity(LandingPageActivity.makeIntent(
-                        this, user.username, user.isAdmin));
+                startActivity(LandingPageActivity.makeIntent(this, user.username, user.isAdmin));
                 finish();
-            } else {
+            }
+
+            else {
                 textError.setVisibility(View.VISIBLE);
             }
         });

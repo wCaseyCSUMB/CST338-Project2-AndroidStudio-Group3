@@ -8,17 +8,8 @@ import retrofit2.http.Query;
 public interface WeatherApi {
 
     @GET("weather")
-    Call<WeatherRespondingClass> getCurrentWeather(
-            @Query("q") String cityName,
-            @Query("appid") String apiKey,
-            @Query("units") String units
-    );
+    Call<WeatherRespondingClass> getCurrentWeather(@Query("q") String cityName, @Query("appid") String apiKey, @Query("units") String units);
 
     @GET("weather") // UGHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
-    Call<WeatherRespondingClass> getWeatherByLocation(
-            @Query("lat") double lat,
-            @Query("lon") double lon,
-            @Query("appid") String apiKey,
-            @Query("units") String units
-    );
+    Call<WeatherRespondingClass> getWeatherByLocation(@Query("lat") double lat, @Query("lon") double lon, @Query("appid") String apiKey, @Query("units") String units);
 }

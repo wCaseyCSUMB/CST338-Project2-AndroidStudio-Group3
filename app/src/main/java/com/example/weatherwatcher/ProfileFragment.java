@@ -32,12 +32,8 @@ public class ProfileFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-
         TextView textUsername = view.findViewById(R.id.text_profile_username);
         TextView textRole = view.findViewById(R.id.text_profile_role);
         Button btnAdminPanel = view.findViewById(R.id.btn_admin_panel);
@@ -56,7 +52,9 @@ public class ProfileFragment extends Fragment {
         if (isAdmin) {
             textRole.setText("Admin Account");
             btnAdminPanel.setVisibility(View.VISIBLE);
-        } else {
+        }
+
+        else {
             textRole.setText("Standard Account");
         }
 

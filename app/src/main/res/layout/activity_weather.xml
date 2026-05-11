@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F0F7FF">
@@ -18,7 +19,7 @@
             android:textSize="30sp"
             android:fontFamily="@font/torus_bold"
             android:textStyle="bold"
-            android:textColor="#004BA1"
+            android:textColor="#004E96"
             android:layout_marginTop="125dp"
             android:layout_marginBottom="20dp" />
 
@@ -31,8 +32,8 @@
             android:padding="12dp"
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/varela_round_regular"
-            android:textColor="#001C36"
-            android:textColorHint="#1972BD"
+            android:textColor="#001124"
+            android:textColorHint="#27517A"
             android:background="@drawable/input_design" />
 
         <Button
@@ -40,11 +41,11 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:text="Search"
-            android:textColor="#DCEAF7"
+            android:textColor="#FFFFFF"
             android:textSize="15sp"
             android:fontFamily="@font/torus_bold"
             android:background="@drawable/button_design"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginBottom="28dp" />
 
         <ProgressBar
             android:id="@+id/progress_bar"
@@ -70,57 +71,75 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/card"
-            android:padding="20dp"
+            android:padding="24dp"
             android:elevation="0dp"
             android:visibility="gone">
 
-            <TextView
-                android:id="@+id/text_city_name"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/result_top_row"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:fontFamily="@font/torus_bold"
-                android:textStyle="bold"
-                android:textColor="#004E96"
-                android:layout_marginBottom="8dp" />
+                android:orientation="horizontal"
+                android:gravity="top"
+                android:layout_marginBottom="12dp">
 
-            <TextView
-                android:id="@+id/text_temperature"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="48sp"
-                android:fontFamily="@font/torus_bold"
-                android:textStyle="bold"
-                android:textColor="#001124"
-                android:layout_marginBottom="4dp" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text_city_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        android:fontFamily="@font/torus_bold"
+                        android:textStyle="bold"
+                        android:textColor="#004E96"
+                        android:layout_marginBottom="10dp" />
+
+                    <TextView
+                        android:id="@+id/text_temperature"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="48sp"
+                        android:fontFamily="@font/torus_bold"
+                        android:textStyle="bold"
+                        android:textColor="#001124"
+                        android:includeFontPadding="false" />
+
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/btn_save_location"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:background="@drawable/pin_button"
+                    android:src="@drawable/ico_pin"
+                    android:contentDescription="Save location"
+                    android:padding="13dp"
+                    android:scaleType="centerInside"
+                    app:tint="#FFFFFF" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/text_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                android:textSize="18sp"
                 android:fontFamily="@font/varela_round_regular"
                 android:textColor="#004E96"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="18dp" />
 
             <TextView
                 android:id="@+id/text_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 android:fontFamily="@font/varela_round_regular"
                 android:textColor="#2284E3" />
-
-            <Button
-                android:id="@+id/btn_save_location"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="📌 Save Location"
-                android:textColor="#DCEAF7"
-                android:textSize="15sp"
-                android:fontFamily="@font/torus_bold"
-                android:background="@drawable/button_design"
-                android:layout_marginTop="16dp"/>
 
         </LinearLayout>
 
